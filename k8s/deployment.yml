@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hrms-backend
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: hrms-backend
+  template:
+    metadata:
+      labels:
+        app: hrms-backend
+    spec:
+      containers:
+      - name: hrms-backend
+        image: teksacademy/hrms-backend:v1
+        ports:
+        - containerPort: 5000
