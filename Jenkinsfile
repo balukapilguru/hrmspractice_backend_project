@@ -21,9 +21,26 @@ pipeline {
             }
         }
 
-        stage('Docker Check') {
+        stage('Deploy') {
             steps {
-                sh 'docker images hrmspractice_backend_project'
+                sh '''
+                    docker stop hrmspractice_backend_project || true
+                    docker rm hrmspractice_backend_project || true
+
+                    docker stop hrmspractice_bakcend_project || true
+                    docker rm hrmspractice_bakcend_project || true
+
+                    docker run -d \
+                        --name hrmspractice_backend_project \
+                        -p 5000:5000 \
+                        hrmspractice_backend_project:latest
+                '''
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                sh 'docker ps'
             }
         }
     }
